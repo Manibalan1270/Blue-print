@@ -4,7 +4,7 @@ from urllib.request import Request, urlopen
 TESTS = [
     {
         "name": "Auth aligned",
-        "requirement": "Implement JWT token validation middleware for API endpoints and reject expired tokens.",
+        "requirement": "Implement JWT token veware for API endpoints and reject expired tokens.",
         "code_diff": "+ async def validate_jwt(token):\n+   payload = jwt.decode(token, SECRET, algorithms=['HS256'])\n+   if payload['exp'] < now():\n+     raise AuthError('expired')\n+   return payload",
     },
     {
