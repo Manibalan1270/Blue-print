@@ -3,16 +3,7 @@ import time
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
-
-APP_VERSION = "1.0.0"
-
-app = FastAPI(
-    title="DevPulse AI",
-    description="Production-grade backend control room for system health and AI analysis endpoints.",
-)
-
+from fasta
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
