@@ -1,4 +1,5 @@
 import re
+from functools import lru_cache
 from typing import Dict
 
 from sentence_transformers import SentenceTransformer
@@ -282,3 +283,10 @@ class AIEngine:
             )
 
         return False, "No direct intent contradiction detected from action terms."
+
+
+@lru_cache(maxsize=1)
+def get_ai_engine() -> "AIEngine":
+    """Shared AIEngine. Loading the embedding model takes seconds and ~100MB of
+    memory, so it is created once per process instead of on every request."""
+    return AIEngine()

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { BASE_URL } from "../../lib/api";
 import {
   Badge,
   Card,
@@ -235,7 +236,7 @@ export default function ExecutiveDashboardPage() {
   useEffect(() => {
     const fetchProjectHealth = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/v1/health");
+        const response = await fetch(`${BASE_URL}/health`);
         if (!response.ok) {
           throw new Error(`Backend returned status ${response.status}`);
         }
@@ -260,7 +261,7 @@ export default function ExecutiveDashboardPage() {
     setInputWarning("");
     setIsAnalyzing(true);
     try {
-      const response = await fetch("http://localhost:8000/api/v1/analyze", {
+      const response = await fetch(`${BASE_URL}/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
