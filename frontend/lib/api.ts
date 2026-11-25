@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:8000/api/v1";
+// Set NEXT_PUBLIC_API_URL in .env.local (or your hosting settings) when the backend isn't on localhost.
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export type AnalysisResult = {
   ticketId: string;
@@ -17,14 +18,14 @@ export async function getAnalysis(ticketId: string): Promise<AnalysisResult> {
   const timeoutId = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const response = await fetch(`${BASE_URL}/analyze/requirement`, {
+    const response = await fetch(`${BASE_URL}/analyze`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ticket_id: ticketId,
-        description: "Demo requirement payload from frontend getAnalysis utility.",
+        requirement: `Demo requirement for ticket ${ticketId}`,
+        code_diff: "+ // demo change",
       }),
       signal: controller.signal,
     });

@@ -6,8 +6,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /build
 
 COPY requirements.txt .
+# CPU-only PyTorch: the default CUDA build adds ~2GB to the image for no benefit here.
 RUN pip install --upgrade pip && \
-    pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+    pip wheel --no-cache-dir --wheel-dir /wheels torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip wheel --no-cache-dir --wheel-dir /wheels --find-links=/wheels -r requirements.txt
 
 
 FROM python:3.11-slim AS runtime
@@ -26,4 +28,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

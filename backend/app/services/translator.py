@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 
-from app.services.ai_engine import AIEngine
+from app.services.ai_engine import get_ai_engine
 
 
 class InsightTranslator:
@@ -45,7 +45,7 @@ class InsightTranslator:
 
     def build_contribution_insight(self, diff_text: str, requirement_text: str) -> dict:
         """Return an evidence-backed insight packet with specific relevance details."""
-        ai_engine = AIEngine()
+        ai_engine = get_ai_engine()
         similarity_info = ai_engine.get_similarity(requirement_text, diff_text)
         impact_info = ai_engine.calculate_impact(diff_text)
 

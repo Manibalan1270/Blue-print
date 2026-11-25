@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pydantic import AliasChoices
 from pydantic import BaseModel, Field
 
-from app.services.ai_engine import AIEngine
+from app.services.ai_engine import get_ai_engine
 from app.services.risk_engine import RiskEngine
 from app.services.translator import InsightTranslator
 
@@ -27,7 +27,7 @@ async def analyze_contribution(payload: AnalysisRequest):
         requirement = payload.requirement
         code_diff = payload.code_diff
 
-        ai_engine = AIEngine()
+        ai_engine = get_ai_engine()
         insight_translator = InsightTranslator()
         risk_engine = RiskEngine()
 
